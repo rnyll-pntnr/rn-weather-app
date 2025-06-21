@@ -1,5 +1,5 @@
 const API_KEY = process.env.EXPO_PUBLIC_WEATHER_API_KEY;
-const BASE_URL = `http://api.weatherapi.com/v1`;
+const BASE_URL = `https://api.weatherapi.com/v1`;
 
 export async function getCurrentWeather(lat: number, lon: number) {
   const res = await fetch(
