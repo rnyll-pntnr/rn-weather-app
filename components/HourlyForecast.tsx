@@ -1,13 +1,8 @@
+import { Image } from 'expo-image';
 import moment from 'moment';
 import { ScrollView, Text, View } from 'react-native';
-import { SunIcon } from 'react-native-heroicons/outline';
 
 export default function HourlyForecast({ forecast }: { forecast: any }) {
-
-    // const forecastData = forecast.filter((hour: any) => {
-    //     const forecastTime = moment(hour.time)
-    //     return forecastTime.isAfter(moment());
-    // })
 
     return (
         <View className="bg-white/15 rounded-2xl p-6 mb-8">
@@ -17,7 +12,12 @@ export default function HourlyForecast({ forecast }: { forecast: any }) {
                     <View key={i} className="items-center mx-4">
                         <Text className="text-sm text-white/80">{moment(hour?.time).format('HH:mm') || '..'}</Text>
                         <View className="my-2">
-                            <SunIcon color={'white'} />
+                            <Image
+                                source={hour?.condition?.icon || ''}
+                                contentFit='cover'
+                                style={{ width: 32, height: 32 }}
+                                transition={1000}
+                            />
                         </View>
                         <Text className="text-lg font-bold text-white">{hour?.temp_c || '..'}°</Text>
                     </View>

@@ -1,12 +1,12 @@
 import { Text, View } from 'react-native';
-import { SunIcon, EyeIcon } from 'react-native-heroicons/outline';
+import { EyeIcon } from 'react-native-heroicons/outline';
 import Icon from 'react-native-vector-icons/Feather'
 
 export default function AdditionalDetails({ weather }: { weather: any }) {
     return (
         <View className="bg-white/15 rounded-2xl p-6 mb-8 flex-row justify-around">
             <View className='items-center'>
-                <SunIcon color={'white'} size={32}/>
+                <Icon name="wind" color={'white'} size={32}/>
                 <Text className="font-bold text-base text-white mt-1">{weather?.wind_kph || '..'} km/h</Text>
                 <Text className="text-xs text-white/70">Wind</Text>
             </View>

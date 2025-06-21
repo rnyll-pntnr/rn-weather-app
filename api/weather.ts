@@ -4,6 +4,15 @@ const BASE_URL = `https://api.weatherapi.com/v1`;
 export async function getCurrentWeather(lat: number, lon: number) {
   const res = await fetch(
     `${BASE_URL}/forecast.json?q=${lat},${lon}&days=7&key=${API_KEY}`
+    // `${BASE_URL}/forecast.json?q=${"Dasmarinas, Cavite"}&days=7&key=${API_KEY}`
+  );
+  if (!res.ok) throw new Error('Failed to fetch weather data');
+  return res.json();
+}
+
+export const getWeatherUsingCity = async (city: string) => {
+  const res = await fetch(
+    `${BASE_URL}/forecast.json?q=${city}&days=7&key=${API_KEY}`
   );
   if (!res.ok) throw new Error('Failed to fetch weather data');
   return res.json();
