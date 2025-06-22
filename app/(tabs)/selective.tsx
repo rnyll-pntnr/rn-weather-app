@@ -1,11 +1,11 @@
-import { getWeatherUsingCity } from "@/api/weather";
+import { getCurrentWeather, getWeatherUsingCity } from "@/api/weather";
 import AdditionalDetails from "@/components/AdditionalDetails";
 import HourlyForecast from "@/components/HourlyForecast";
 import MainWeatherInfo from "@/components/MainWeatherInfo";
 import SevenDayForecasat from "@/components/SevenDayForecast";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
-import { ActivityIndicator, ScrollView, TextInput, View, Text } from "react-native";
+import { ActivityIndicator, ScrollView, Text, TextInput, View } from "react-native";
 import IconFeather from "react-native-vector-icons/Feather";
 
 export default function Selective() {
@@ -21,7 +21,8 @@ export default function Selective() {
             setLoading(true);
             setError(null);
             const weatherData = await getWeatherUsingCity(searchQuery);
-            setWeather(weatherData.current);
+            const currentWeatherData = await getCurrentWeather(weatherData.location.lat, weatherData.location.lon);
+            setWeather(currentWeatherData.current);
             setLocation(weatherData.location);
             setForecast(weatherData.forecast);
         } catch (error) {

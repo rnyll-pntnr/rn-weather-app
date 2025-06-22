@@ -1,4 +1,4 @@
-import { getCurrentWeather } from "@/api/weather";
+import { getCurrentWeather, getCurrentWeatherForecast } from "@/api/weather";
 import AdditionalDetails from "@/components/AdditionalDetails";
 import HourlyForecast from "@/components/HourlyForecast";
 import MainWeatherInfo from "@/components/MainWeatherInfo";
@@ -29,8 +29,9 @@ export default function Index() {
       const { latitude, longitude } = location.coords;
 
       try {
-        const weatherData = await getCurrentWeather(latitude, longitude);
-        setWeather(weatherData.current);
+        const currentWeatherData = await getCurrentWeather(latitude, longitude);
+        const weatherData = await getCurrentWeatherForecast(latitude, longitude);
+        setWeather(currentWeatherData.current);
         setLocation(weatherData.location);
         setForecast(weatherData.forecast);
       } catch (error) {
