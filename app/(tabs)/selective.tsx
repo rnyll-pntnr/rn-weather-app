@@ -50,7 +50,7 @@ export default function Selective() {
                         <Text className="text-red-500">{error}</Text>
                     </View>
                 ) : (
-                    <ScrollView contentContainerStyle={{ padding: 16 }} className="text-white" style={{ flexGrow: 1, width: '100%' }}>
+                    <ScrollView contentContainerStyle={{ padding: 16 }} className="text-white" style={{ flexGrow: 1, width: '100%' }} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                         <View className="items-center mb-8 my-8">
                             <View className="flex-row items-center bg-white/20 rounded-full px-4 py-2 mb-4">
                                 <TextInput

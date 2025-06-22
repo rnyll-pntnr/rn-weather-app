@@ -60,7 +60,7 @@ export default function Index() {
             <Text className="text-red-500">{error}</Text>
           </View>
         ) : (
-          <ScrollView contentContainerStyle={{ padding: 16 }} className="text-white" style={{ flexGrow: 1, width: '100%' }}>
+          <ScrollView contentContainerStyle={{ padding: 16 }} className="text-white" style={{ flexGrow: 1, width: '100%' }} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
             <MainWeatherInfo weather={weather} location={location}/>
             <AdditionalDetails weather={weather}/>
             <HourlyForecast forecast={forecast?.forecastday[0]?.hour || []}/>

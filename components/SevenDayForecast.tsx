@@ -1,6 +1,7 @@
+import { getWeatherIcon } from '@/api/weather';
+import FeatherIcon from '@expo/vector-icons/Feather';
 import moment from 'moment';
 import { Text, View } from 'react-native';
-import { Image } from 'expo-image';
 
 export default function SevenDayForecasat({ forecast }: { forecast?: any }) {
     return (
@@ -13,10 +14,10 @@ export default function SevenDayForecasat({ forecast }: { forecast?: any }) {
                 >
                     <Text className="font-bold w-1/3 text-white">{moment(day.date).format('ddd') ?? '..'}</Text>
                     <View className="w-1/3 items-center">
-                        <Image
-                            source={day?.day?.condition?.icon || ''}
-                            contentFit='cover'
-                            style={{ width: 32, height: 32 }}
+                        <FeatherIcon
+                            name={getWeatherIcon(day?.day?.condition?.code || '', 1)}
+                            size={32}
+                            color="white"
                             transition={1000}
                         />
                     </View>
