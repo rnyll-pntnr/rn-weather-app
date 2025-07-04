@@ -1,5 +1,4 @@
 import { Text, View } from 'react-native';
-import { EyeIcon } from 'react-native-heroicons/outline';
 import Icon from 'react-native-vector-icons/Feather'
 
 export default function AdditionalDetails({ weather }: { weather: any }) {
@@ -18,7 +17,7 @@ export default function AdditionalDetails({ weather }: { weather: any }) {
             </View>
 
             <View className='items-center'>
-                <EyeIcon size={32} color="white" />
+                <Icon name="eye" size={32} color="white" />
                 <Text className="font-bold text-base text-white mt-1">{weather?.vis_km || '..'} KM</Text>
                 <Text className="text-xs text-white/70">Visibility</Text>
             </View>

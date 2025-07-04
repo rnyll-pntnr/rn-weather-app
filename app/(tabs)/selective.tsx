@@ -80,7 +80,7 @@ export default function Selective() {
                         </View>
                         <MainWeatherInfo weather={weather} location={location} />
                         <AdditionalDetails weather={weather} />
-                        <HourlyForecast forecast={forecast?.forecastday[0]?.hour || []} />
+                        <HourlyForecast forecast={forecast?.forecastday[0]?.hour || []} tzId={location?.tz_id || 'UTC'} />
                         <SevenDayForecasat forecast={forecast?.forecastday || []} />
                     </ScrollView>
                 )}

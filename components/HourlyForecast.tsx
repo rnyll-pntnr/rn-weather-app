@@ -1,17 +1,23 @@
 import { getWeatherIcon } from '@/api/weather';
 import FeatherIcon from '@expo/vector-icons/Feather';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import React, { useEffect, useRef } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
-export default function HourlyForecast({ forecast }: { forecast: any }) {
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+export default function HourlyForecast({ forecast, tzId }: { forecast: any, tzId: string }) {
     const scrollViewRef = useRef<ScrollView>(null);
     const itemLayouts = useRef<{ [key: number]: number }>({}).current;
 
     useEffect(() => {
-        if (forecast && forecast.length > 0) {
+        if (forecast && forecast.length > 0 && tzId) {
+            const now = dayjs().tz(tzId);
             const currentIndex = forecast.findIndex((hour: any) =>
-                moment(hour?.time).isSame(moment(), 'hour')
+                dayjs(hour?.time).tz(tzId).hour() === now.hour()
             );
 
             if (currentIndex > -1) {
@@ -24,7 +30,7 @@ export default function HourlyForecast({ forecast }: { forecast: any }) {
                 return () => clearTimeout(timeoutId);
             }
         }
-    }, [forecast, itemLayouts])
+    }, [forecast, itemLayouts, tzId]);
 
     return (
         <View className="bg-white/15 rounded-2xl p-6 mb-8">
@@ -41,9 +47,9 @@ export default function HourlyForecast({ forecast }: { forecast: any }) {
                             const { x } = event.nativeEvent.layout;
                             itemLayouts[i] = x;
                         }}
-                        className={`items-center my-2 ${moment(hour?.time).isSame(moment(), 'hour') ? 'bg-white/20' : ''} p-4 rounded-lg mr-4`}
+                        className={`items-center my-2 ${dayjs(hour?.time).tz(tzId).hour() === dayjs().tz(tzId).hour() ? 'bg-white/20' : ''} p-4 rounded-lg mr-4`}
                     >
-                        <Text className="text-sm text-white/80">{moment(hour?.time).format('HH:mm') || '..'}</Text>
+                        <Text className="text-sm text-white/80">{dayjs(hour?.time).tz(tzId).format('HH:mm') || '..'}</Text>
                         <View className="my-2">
                             <FeatherIcon
                                 name={getWeatherIcon(hour?.condition?.code || '', hour?.is_day)}
@@ -51,7 +57,7 @@ export default function HourlyForecast({ forecast }: { forecast: any }) {
                                 color="white"
                             />
                         </View>
-                        <Text className="text-lg font-bold text-white">{hour?.temp_c || '..'}°</Text>
+                        <Text className="text-lg font-bold text-white">{Math.round(hour?.temp_c) || '..'}°</Text>
                     </View>
                 ))}
             </ScrollView>
